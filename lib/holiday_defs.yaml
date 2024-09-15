@@ -1,0 +1,123 @@
+# list of holidays defined by `month` followed by a list of `holiday` definitions
+# `holiday` ::= `id` `name` `day` [`validyears`]   
+# `day`:  
+# - int,  day number, indicates a fix day in the month
+# - array[int], [nth, dow] indicates the n'th day of week (dow) in the month
+# `validyears` : 
+# - `range` array[int], [since, until] range of valid years, default [1948, 2999] when not given   
+# - `except` array[int], valid except in the given individual years
+# - `in` array[int], valid in the given individual years
+
+1: 
+  - id: NewYearsDay 
+    name: 元日
+    day: 1
+  - id: ComingOfAgeDay
+    name: 成人の日
+    day: [2, 1] # 2nd Monday
+2: 
+  - id: NationalFoundationDay
+    name: 建国記念の日
+    day: 11
+    range: [1966, 2999] 
+  - id: EmperorsBirthday
+    name: 天皇誕生日  # 令和天皇
+    day: 23
+    range: [2020, 2999]
+3: 
+  - id: springEquinox
+    name: 春分の日
+    day: springEquinox
+4: 
+  - id: ShowaDay
+    name: 昭和の日
+    day: 29
+    range: [1989, 2999]
+  - id: EmperorsBirthday
+    name: 天皇誕生日 # 昭和天皇
+    day: 29
+    range: [1910, 1988] 
+5: 
+  - id: CoronationDay
+    name: 天皇の即位の日
+    day: 1
+    in: [2019]
+  - id: ConstitutionMemorialDay
+    name: 憲法記念日
+    day: 3
+  - id: GreeneryDay
+    name: みどりの日
+    day: 4
+  - id: ChildrensDay
+    name: こどもの日
+    day: 5
+7: 
+  - id: MarineDay
+    name: 海の日
+    day: [3, 1] # 3rd Monday
+    except: [2020, 2021] 
+  - id: MarineDay
+    name: 海の日
+    day: 22
+    in: [2021]
+  - id: MarineDay
+    name: 海の日
+    day: 23
+    in: [2020]
+  - id: SportsDay
+    name: スポーツの日
+    day: 24
+    in: [2020]
+  - id: SportsDay
+    name: スポーツの日
+    day: 23
+    in: [2021]
+8: 
+  - id: MountainDay
+    name: 山の日
+    day: 11
+    except: [2020, 2021]
+  - id: MountainDay
+    name: 山の日
+    day: 8
+    in: [2021]
+  - id: MountainDay
+    name: 山の日
+    day: 10
+    in: [2020]
+9: 
+  - id: RespectForTheAgeDay
+    name: 敬老の日
+    day: [3, 1] # 3rd Monday
+  - id: AutumnalEquinoxDay
+    name: 秋分の日
+    day: autumnEquinox
+10: 
+  - id: HealthSportsDay
+    name: 体育の日
+    day: 10
+    range: [1966, 1999]
+  - id: HealthSportsDay
+    name: 体育の日
+    day: [2,1]
+    range: [2000, 2019]
+  - id: SportsDay
+    name: スポーツの日
+    day: [2,1]
+    range: [2022, 2999]
+  - id: EnthronementProclamationCeremony
+    name: 即位礼正殿の儀
+    day: 22
+    in: [2019]
+11: 
+  - id: CultureDay
+    name: 文化の日
+    day: 3
+  - id: LaborThanksgivingDay
+    name: 勤労感謝の日
+    day: 23
+12: 
+  - id: EmperorsBirthday
+    name: 天皇誕生日 # 平成天皇
+    day: 23
+    range: [1989, 2018]
