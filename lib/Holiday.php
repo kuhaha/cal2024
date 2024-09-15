@@ -87,7 +87,7 @@ class Holiday extends Calendar
         return -1; 
     }
 
-    /** parse holiday definitions and return an array of holidays for this year */
+    /** parse holiday definitions and return an array of holidays for this month */
     private function parseMonth(int $year, int $month, array $month_defs): array
     {
         $holidays = [];
