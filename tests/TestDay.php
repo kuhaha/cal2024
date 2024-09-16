@@ -18,7 +18,11 @@ class TestDay extends TestCase
         $this->assertEquals('水', $today->wday());
         $this->assertEquals('火', $day1->wday());
         $this->assertEquals('木', $day2->wday());
- 
+
+        $this->assertEquals('Wed', $today->wday('en'));
+        $this->assertEquals('Tue', $day1->wday('en'));
+        $this->assertEquals('Thu', $day2->wday('en'));
+
     }
 
     public function testComparison(){
