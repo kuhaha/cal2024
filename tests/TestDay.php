@@ -14,6 +14,11 @@ class TestDay extends TestCase
 
         $this->assertEquals('2024-10-09', $today->format('Y-m-d')); 
         $this->assertEquals('2024-10-09(Wed)', $today->format('Y-m-d(D)')); 
+    }
+    public function testWday() {
+        $today = new Day(2024, 10, 9);
+        $day1 = new Day(2024, 10, 8);
+        $day2 = new Day(2024, 10, 10);
 
         $this->assertEquals('水', $today->wday());
         $this->assertEquals('火', $day1->wday());
@@ -22,14 +27,13 @@ class TestDay extends TestCase
         $this->assertEquals('Wed', $today->wday('en'));
         $this->assertEquals('Tue', $day1->wday('en'));
         $this->assertEquals('Thu', $day2->wday('en'));
-
     }
 
     public function testComparison(){
-        $today = new Day(2024, 10, 12);
-        $day1 = new Day(2024, 10, 11);
-        $day2 = new Day(2024, 10, 12);
-        $day3 = new Day(2024, 10, 13);
+        $today = new Day(2024, 10, 9);
+        $day1 = new Day(2024, 10, 8);
+        $day2 = new Day(2024, 10, 9);
+        $day3 = new Day(2024, 10, 10);
 
         $this->assertTrue($today->eq($day2));
         $this->assertTrue($day2->eq($today));
