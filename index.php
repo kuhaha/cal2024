@@ -7,6 +7,7 @@ use kcal\Month;
 use kcal\Calendar;
 use kcal\Holiday;
 
+date_default_timezone_set('Asia/Tokyo');
 header('Content-Type: text/plain; charset=UTF-8');
 
 echo '=== class Day ========', PHP_EOL;
@@ -112,8 +113,10 @@ echo '=== serialize / cache ========', eol(2);
 
 // echo $cal2024::class . " Cached!", eol();
 
-$cachedData = file_get_contents('cache/cal2024.cache');
 
+$cachedData = file_get_contents('cache/cal2024.cache');
+$cache_filetime = filemtime('cache/cal2024.cache');
+echo date('Y/m/d H:i:s',$cache_filetime), ' cached', eol();
 // Unserialize the data
 $unserializedData = unserialize($cachedData);
 print_r($unserializedData->month(2));
