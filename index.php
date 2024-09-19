@@ -71,18 +71,20 @@ $holiday_defs = Yaml::parse($input);
 
 echo '=== class Holiday ========', eol(2);
 
-$cal = new Holiday(1965, 4);
-$cal->parse($holiday_defs);
-print_r($cal->holidays);
+$cal = new Calendar(1965, 4);
+$hcal = new Holiday($cal);
+$hcal->parse($holiday_defs);
+print_r($hcal->holidays);
 
-$cal = new Holiday(2019, 4);
-$cal->parse($holiday_defs);
-print_r($cal->holidays);
+$cal = new Calendar(2019, 4);
+$hcal = new Holiday($cal);
+$hcal->parse($holiday_defs);
+print_r($hcal->holidays);
 
-$hcal2024 = new Holiday($year, 4);
+$cal2024 = new Calendar($year, 4);
+$hcal2024 = new Holiday($cal2024);
 $hcal2024->parse($holiday_defs);
 print_r($hcal2024->holidays);
-// print_r($hcal2024->month(5));
 
 $w_offday = 4; //定休日：4-毎週木曜日
 $cal2024->setCloseday($w_offday, '店休日');
@@ -113,21 +115,19 @@ echo $cal_and->nextOpenDay(), eol();
 echo $cal_and->nextOpenDay(2), eol();
 echo $cal_and->nextOpenDay(3), eol();
 
-echo '=== serialize / cache ========', eol(2);
+// echo '=== serialize / cache ========', eol(2);
 
 // $serializedData = serialize($cal2024);
 // file_put_contents('cache/cal2024.cache', $serializedData);
-
 // echo $cal2024::class . " Cached!", eol();
 
+// $cachedData = file_get_contents('cache/cal2024.cache');
+// $cache_filetime = filemtime('cache/cal2024.cache');
+// echo date('Y/m/d H:i:s',$cache_filetime), ' cached', eol();
+// // Unserialize the data
+// $unserializedData = unserialize($cachedData);
+// print_r($unserializedData->month(2));
 
-$cachedData = file_get_contents('cache/cal2024.cache');
-$cache_filetime = filemtime('cache/cal2024.cache');
-echo date('Y/m/d H:i:s',$cache_filetime), ' cached', eol();
-// Unserialize the data
-$unserializedData = unserialize($cachedData);
-print_r($unserializedData->month(2));
-
-echo $cal2024::class . " Loaded!", eol();
+// echo $cal2024::class . " Loaded!", eol();
 
 

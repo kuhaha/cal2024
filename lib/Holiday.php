@@ -3,29 +3,33 @@ namespace kcal;
 
 use kcal\Calendar;
 
-class Holiday extends Calendar
+class Holiday //extends Calendar
 {
     public array $holidays = [];
-    
+    public Calendar $cal;
     private const HOLIDAY_SINCE = 1948;
     private const SUBSTITUTE_HOLIDAY = '振替休日';
     private const EXTRA_HOLIDAY = '国民の休日';   
     private const DATE_FORMAT ='Y-m-d'; // '2024-01-07' for January 7, 2024 
 
+    public function __construct(Calendar $cal)
+    {
+        $this->cal = $cal;
+    }
     public function parse(array $holiday_defs): void
     {
-        if ($this->year >= self::HOLIDAY_SINCE){
+        if ($this->cal->year >= self::HOLIDAY_SINCE){
             $this->parseYear($holiday_defs)->suppHolidays()->extraHolidays();
         }
-        foreach ($this->holidays as $date=>$name){
-            [, $m, $d] = Day::ymd($date);
-            $this->month($m)->day($d)->setAttr('Holiday', $name);
-        }
+        // foreach ($this->holidays as $date=>$name){
+        //     [, $m, $d] = Day::ymd($date);
+        //     $this->cal->month($m)->day($d)->setAttr('Holiday', $name);
+        // }
     }
 
     private function parseYear(array $holiday_defs): self
     {
-        foreach ($this->months as $cal_month){
+        foreach ($this->cal->months as $cal_month){
             $year = $cal_month->year;
             $month = $cal_month->month;
             $month_defs = $holiday_defs[$month]??[]; 
@@ -107,7 +111,7 @@ class Holiday extends Calendar
     */
     private function equinox(string $holiday='springEquinox') : int
     {
-        $year = $this->year;
+        $year = $this->cal->year;
         if (!$this->during($year, [1851, 2150])){
             return -1;
         }
@@ -131,13 +135,13 @@ class Holiday extends Calendar
     {
         $valid = true;
         if (isset($day_def['range'])){
-            $valid = $valid && self::during($this->year, $day_def['range']);
+            $valid = $valid && self::during($this->cal->year, $day_def['range']);
         }
         if (isset($day_def['except'])){
-            $valid = $valid && !in_array($this->year, $day_def['except']);
+            $valid = $valid && !in_array($this->cal->year, $day_def['except']);
         }
         if (isset($day_def['in'])){
-            $valid = $valid && in_array($this->year, $day_def['in']);
+            $valid = $valid && in_array($this->cal->year, $day_def['in']);
         }
         return $valid;
     }
