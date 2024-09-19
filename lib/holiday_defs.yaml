@@ -1,8 +1,8 @@
 # list of holidays defined by `month` followed by a list of `holiday` definitions
 # `holiday` ::= `id` `name` `day` [`validyears`]   
-# `day`:  
-# - int,  day number, indicates a fix day in the month
-# - array[int], [nth, dow] indicates the n'th day of week (dow) in the month
+# `day` in 2 forms  
+# 1. int,  a day number, indicates a fixed day in the month
+# 2. array[int], [nth, dow] indicates the n'th day of week (dow) in the month
 # `validyears` : 
 # - `range` array[int], [since, until] range of valid years, default [1948, 2999] when not given   
 # - `except` array[int], valid except in the given individual years

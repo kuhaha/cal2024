@@ -8,61 +8,68 @@ use kcal\Calendar;
 use kcal\Holiday;
 
 date_default_timezone_set('Asia/Tokyo');
+function eol($n = 1)
+{
+    $eols = array_map(fn($v)=>PHP_EOL, range(1,$n)); 
+    return implode('', $eols);
+}
+
 header('Content-Type: text/plain; charset=UTF-8');
 
-echo '=== class Day ========', PHP_EOL;
+
+echo '=== class Day ========', eol(2);
 
 $today = new Day(2024,10,12);
 $next = $today->next();
 $other = $today->next(2);
 $another = $today->next(-5);
 $fmt = 'Y-m-d (D)';
-echo PHP_EOL;
-echo $today->format($fmt), $today->wday(), PHP_EOL;
-echo $today->leq($next) ? '<=' : '>', PHP_EOL;
-echo $next->format($fmt), $next->wday(), PHP_EOL;
-echo $next->leq($other) ? '<=' : '>', PHP_EOL;
-echo $other->format($fmt), $other->wday(), PHP_EOL;
-echo $other->leq($another) ? '<=' : '>', PHP_EOL;
-echo $another->format($fmt), $another->wday(), PHP_EOL;
+echo eol();
+echo $today->format($fmt), $today->wday(), eol();
+echo $today->leq($next) ? '<=' : '>', eol();
+echo $next->format($fmt), $next->wday(), eol();
+echo $next->leq($other) ? '<=' : '>', eol();
+echo $other->format($fmt), $other->wday(), eol();
+echo $other->leq($another) ? '<=' : '>', eol();
+echo $another->format($fmt), $another->wday(), eol();
 
-echo PHP_EOL;
-echo $today->format($fmt), PHP_EOL;
-echo $today->sandwich($other) ? 'sandwich' : 'non-sandwich', PHP_EOL;
-echo $other->format($fmt), PHP_EOL;
+echo eol();
+echo $today->format($fmt), eol();
+echo $today->sandwich($other) ? 'sandwich' : 'non-sandwich', eol();
+echo $other->format($fmt), eol();
 
-echo PHP_EOL;
-echo $today->format($fmt), PHP_EOL;
-echo $today->sandwich($another) ? 'sandwich' : 'non-sandwich', PHP_EOL;
-echo $another->format($fmt), PHP_EOL;
+echo eol();
+echo $today->format($fmt), eol();
+echo $today->sandwich($another) ? 'sandwich' : 'non-sandwich', eol();
+echo $another->format($fmt), eol();
 
-echo PHP_EOL;
-echo '=== class Month ========', PHP_EOL;
+echo eol();
+echo '=== class Month ========', eol(2);
 
-echo PHP_EOL;
+echo eol();
 $month = new Month(2024, 9);
 print_r($month->day(15)->setAttr('Holiday', '敬老の日'));
 
-echo $month->d2w(15), '<- dow number of 15th day, Sep.', PHP_EOL;
-echo $month->w2d(2, 4), '<- 2nd Thursday of Sep.', PHP_EOL;
+echo $month->d2w(15), '<- dow number of 15th day, Sep.', eol();
+echo $month->w2d(2, 4), '<- 2nd Thursday of Sep.', eol();
 
-echo PHP_EOL;
-echo '=== class Calendar ========', PHP_EOL;
+echo eol();
+echo '=== class Calendar ========', eol(2);
 
-echo PHP_EOL;
+echo eol();
 $year = 2024;
 
 $cal2024 = new Calendar($year, 4);
 foreach ($cal2024->months() as $m=>$month){
-    echo $month,  PHP_EOL;
+    echo $month,  eol();
 }
 
-echo PHP_EOL;
+echo eol();
 $input = file_get_contents("lib\holiday_defs.yaml");
 $holiday_defs = Yaml::parse($input);
 // print_r($holiday_defs); 
 
-echo '=== class Holiday ========', PHP_EOL;
+echo '=== class Holiday ========', eol(2);
 
 $cal = new Holiday(1965, 4);
 $cal->parse($holiday_defs);
@@ -87,13 +94,13 @@ $cal2024->month(3)->day(20)->setAttr('Openday', '営業日');
 
 print_r($cal2024->month(3));
 
-echo $cal2024->today(new Day(2025, 3, 19)), PHP_EOL;
+echo $cal2024->today(new Day(2025, 3, 19)), eol();
 
-echo $cal2024->nextOpenDay(), PHP_EOL;
-echo $cal2024->nextOpenDay(2), PHP_EOL;
-echo $cal2024->nextOpenDay(3), PHP_EOL;
+echo $cal2024->nextOpenDay(), eol();
+echo $cal2024->nextOpenDay(2), eol();
+echo $cal2024->nextOpenDay(3), eol();
 
-echo '=== class Holiday ::and()========', PHP_EOL;
+echo '=== class Holiday ::and()========', eol(2);
 
 $other = new Calendar($year, 4);
 $other->month(3)->day(24)->setAttr('Closeday', '臨時休業C');
@@ -101,10 +108,10 @@ $other->month(3)->day(24)->setAttr('Closeday', '臨時休業C');
 $cal_and = $cal2024->and($other);
 // print_r($cal_and->month(3));
 
-echo $cal2024->today(new Day(2025, 3, 19)), PHP_EOL;
-echo $cal_and->nextOpenDay(), PHP_EOL;
-echo $cal_and->nextOpenDay(2), PHP_EOL;
-echo $cal_and->nextOpenDay(3), PHP_EOL;
+echo $cal2024->today(new Day(2025, 3, 19)), eol();
+echo $cal_and->nextOpenDay(), eol();
+echo $cal_and->nextOpenDay(2), eol();
+echo $cal_and->nextOpenDay(3), eol();
 
 echo '=== serialize / cache ========', eol(2);
 
@@ -123,8 +130,4 @@ print_r($unserializedData->month(2));
 
 echo $cal2024::class . " Loaded!", eol();
 
-function eol($n = 1)
-{
-    $eols = array_map(fn($v)=>PHP_EOL, range(1,$n)); 
-    return implode('', $eols);
-}
+

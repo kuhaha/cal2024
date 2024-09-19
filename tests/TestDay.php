@@ -3,6 +3,7 @@ namespace kcal;
 
 include 'vendor/autoload.php';
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class TestDay extends TestCase
