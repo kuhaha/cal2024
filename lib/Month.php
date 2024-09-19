@@ -51,6 +51,22 @@ class Month
         return ($d <= $this->lastday) ? $d : -1; 
     }
     
+    /**
+     * w2days(): 
+     * @param int $dow, day of week
+     * @return array[int], all days of the same $dow in the month 
+     */
+    public function w2days(int $dow): array
+    {
+        $days = [];
+        for($n = 1; $n < 7; $n++){
+            $day = $this->w2d($n, $dow);
+            if ($day >0 )
+                $days[] = $day;
+        }
+        return $days;
+    }
+
     function __toString(): string
     {
         return "{$this->year}-{$this->month}";

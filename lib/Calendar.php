@@ -53,14 +53,16 @@ class Calendar
         }
     }
 
-    public function setDays(int $w, string $name="定休日")
+    public function setDays(string $key, array $date_to_names): self
     {
-        foreach ($this->months() as $m => $month){
-            for ($n = 1; $n < 6; $n++){
-                $d = $month->w2d($n, $w);
-                if ($d > 0) $month->day($d)->setAttr('Closeday', $name);
-            }
+        foreach ($date_to_names as $date=>$name){
+            $day = Day::createFromString($date);
+            if ($this->validate($day)){
+                [$m, $d] = [$day->month(), $day->day()];
+                $this->cal->month($m)->day($d)->setAttr($key, $name);
+            }            
         }
+        return $this;
     }
 
 
