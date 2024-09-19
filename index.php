@@ -76,7 +76,7 @@ $hcal2024->parse($holiday_defs);
 print_r($hcal2024->holidays);
 // print_r($hcal2024->month(5));
 
-$w_offday = 2; //定休日：4-毎週木曜日
+$w_offday = 4; //定休日：4-毎週木曜日
 $cal2024->setCloseday($w_offday, '店休日');
 // 臨時休業
 $cal2024->month(3)->day(21)->setAttr('Closeday', '臨時休業A');
