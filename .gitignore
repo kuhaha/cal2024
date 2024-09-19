@@ -6,6 +6,5 @@
 bin/_*
 lib/xxx-*
 composer.lock
-cache/*
 var
 vendor
