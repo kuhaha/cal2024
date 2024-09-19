@@ -42,8 +42,8 @@ echo PHP_EOL;
 $month = new Month(2024, 9);
 print_r($month->day(15)->setAttr('Holiday', '敬老の日'));
 
-echo $month->d2w(15), ' week of 15th day', PHP_EOL;
-echo $month->w2d(2, 4), ' 2nd Thursday', PHP_EOL;
+echo $month->d2w(15), '<- dow number of 15th day, Sep.', PHP_EOL;
+echo $month->w2d(2, 4), '<- 2nd Thursday of Sep.', PHP_EOL;
 
 echo PHP_EOL;
 echo '=== class Calendar ========', PHP_EOL;
