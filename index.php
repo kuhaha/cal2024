@@ -104,3 +104,24 @@ echo $cal2024->today(new Day(2025, 3, 19)), PHP_EOL;
 echo $cal_and->nextOpenDay(), PHP_EOL;
 echo $cal_and->nextOpenDay(2), PHP_EOL;
 echo $cal_and->nextOpenDay(3), PHP_EOL;
+
+echo '=== serialize / cache ========', eol(2);
+
+// $serializedData = serialize($cal2024);
+// file_put_contents('cache/cal2024.cache', $serializedData);
+
+// echo $cal2024::class . " Cached!", eol();
+
+$cachedData = file_get_contents('cache/cal2024.cache');
+
+// Unserialize the data
+$unserializedData = unserialize($cachedData);
+print_r($unserializedData->month(2));
+
+echo $cal2024::class . " Loaded!", eol();
+
+function eol($n = 1)
+{
+    $eols = array_map(fn($v)=>PHP_EOL, range(1,$n)); 
+    return implode('', $eols);
+}
