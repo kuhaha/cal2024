@@ -5,7 +5,6 @@
 .phpunit.result.cache
 bin/_*
 lib/xxx-*
-cache/*
 composer.lock
 var
 vendor
