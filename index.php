@@ -93,11 +93,9 @@ $cal2024->month(3)->day(21)->setAttr('Closeday', '臨時休業A');
 $cal2024->month(3)->day(23)->setAttr('Closeday', '臨時休業B');
 // 指定営業日＞指定定休日＞指定なし（デフォルト＝「営業日」
 $cal2024->month(3)->day(20)->setAttr('Openday', '営業日');
-
 print_r($cal2024->month(3));
 
 echo $cal2024->today(new Day(2025, 3, 19)), eol();
-
 echo $cal2024->nextOpenDay(), eol();
 echo $cal2024->nextOpenDay(2), eol();
 echo $cal2024->nextOpenDay(3), eol();
