@@ -72,28 +72,33 @@ $holiday_defs = Yaml::parse($input);
 echo '=== class Holiday ========', eol(2);
 
 $cal = new Calendar(1965, 4);
-$hcal = new Holiday($cal);
-$hcal->parse($holiday_defs);
-print_r($hcal->holidays);
+$holiday = new Holiday($cal);
+$holiday->parse($holiday_defs);
+print_r($holiday->holidays);
 
 $cal = new Calendar(2019, 4);
-$hcal = new Holiday($cal);
-$hcal->parse($holiday_defs);
-print_r($hcal->holidays);
+$holiday = new Holiday($cal);
+$holiday->parse($holiday_defs);
+print_r($holiday->holidays);
 
 $cal2024 = new Calendar($year, 4);
-$hcal2024 = new Holiday($cal2024);
-$hcal2024->parse($holiday_defs);
-print_r($hcal2024->holidays);
+$holiday2024 = new Holiday($cal2024);
+$holiday2024->parse($holiday_defs);
+print_r($holiday2024->holidays);
 
-$w_offday = 4; //定休日：4-毎週木曜日
-$cal2024->setCloseday($w_offday, '店休日');
+// 祝日休日をカレンダーに追加
+$cal2024->setDays('Holiday', $holiday2024->holidays);
+
+$w_offday = 4; //定休日を指定
+$cal2024->setCloseday($w_offday, '定休日');
+
+
 // 臨時休業
 $cal2024->month(3)->day(21)->setAttr('Closeday', '臨時休業A');
 $cal2024->month(3)->day(23)->setAttr('Closeday', '臨時休業B');
 // 指定営業日＞指定定休日＞指定なし（デフォルト＝「営業日」
 $cal2024->month(3)->day(20)->setAttr('Openday', '営業日');
-print_r($cal2024->month(3));
+print_r($cal2024->month(5));
 
 echo $cal2024->today(new Day(2025, 3, 19)), eol();
 echo $cal2024->nextOpenDay(), eol();

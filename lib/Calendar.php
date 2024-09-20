@@ -19,7 +19,7 @@ class Calendar
         $this->today = new Day($year, $firstmonth, 1);
         
         foreach (range($firstmonth, $firstmonth + 11) as $m){
-            $n = $m > 12 ? $m - 12 : $m; // 2024-13 => 2025-01
+            $n = $m > 12 ? $m - 12 : $m; // 13 => 1
             $this->months[$n] = new Month($year, $m);
         }      
     }
@@ -45,10 +45,9 @@ class Calendar
 
     public function setCloseday(int $w, string $name="定休日")
     {
-        foreach ($this->months() as $m => $month){
-            for ($n = 1; $n < 6; $n++){
-                $d = $month->w2d($n, $w);
-                if ($d > 0) $month->day($d)->setAttr('Closeday', $name);
+        foreach ($this->months() as $month){
+            foreach ($month->w2days($w) as $d){
+                $month->day($d)->setAttr('Closeday', $name);
             }
         }
     }
@@ -59,7 +58,7 @@ class Calendar
             $day = Day::createFromString($date);
             if ($this->validate($day)){
                 [$m, $d] = [$day->month(), $day->day()];
-                $this->cal->month($m)->day($d)->setAttr($key, $name);
+                $this->month($m)->day($d)->setAttr($key, $name);
             }            
         }
         return $this;

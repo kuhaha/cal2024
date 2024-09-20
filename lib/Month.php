@@ -29,7 +29,7 @@ class Month
     }
 
     /**
-     * d2w(),  transform a day of the month to the corresponding day of week  
+     * d2w(), transform a day of the month to the corresponding day of week  
      * @param int $day,
      * @return int the day of week for the `$day`
      */
@@ -52,17 +52,16 @@ class Month
     }
     
     /**
-     * w2days(): 
+     * w2days(): compute all days of the same $dow in the month 
      * @param int $dow, day of week
      * @return array[int], all days of the same $dow in the month 
      */
     public function w2days(int $dow): array
     {
         $days = [];
-        for($n = 1; $n < 7; $n++){
+        for($n = 1; $n < 6; $n++){
             $day = $this->w2d($n, $dow);
-            if ($day >0 )
-                $days[] = $day;
+            if ($day > 0) array_push($days, $day);
         }
         return $days;
     }
