@@ -94,7 +94,7 @@ class Calendar
      * - closedays are closed days in either $this or $other calendar
      * return false otherwise
      */
-    public function and(Calendar $other): Calendar | bool
+    public function and(Calendar $other): mixed
     {
         if ($this->year != $other->year) return false;
         if ($this->firstmonth != $other->firstmonth) return false;

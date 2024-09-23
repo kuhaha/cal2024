@@ -115,7 +115,7 @@ class Day
     /**
      * check if there is exactly one day between $this and $other day
      */
-    public function sandwich(Day $other): Day | bool
+    public function sandwich(Day $other): mixed
     {
         if  ($other->eq($this->next(2))) return $this->next();
         return false;

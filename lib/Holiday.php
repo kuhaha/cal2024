@@ -3,7 +3,7 @@ namespace kcal;
 
 use kcal\Calendar;
 
-class Holiday //extends Calendar
+class Holiday
 {
     public array $holidays = [];
     public Calendar $cal;
@@ -21,10 +21,7 @@ class Holiday //extends Calendar
         if ($this->cal->year >= self::HOLIDAY_SINCE){
             $this->parseYear($holiday_defs)->suppHolidays()->extraHolidays();
         }
-        // foreach ($this->holidays as $date=>$name){
-        //     [, $m, $d] = Day::ymd($date);
-        //     $this->cal->month($m)->day($d)->setAttr('Holiday', $name);
-        // }
+
     }
 
     private function parseYear(array $holiday_defs): self

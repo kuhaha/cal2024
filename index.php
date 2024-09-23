@@ -90,7 +90,15 @@ print_r($holiday2024->holidays);
 $cal2024->setDays('Holiday', $holiday2024->holidays);
 
 $w_offday = 4; //定休日を指定
-$cal2024->setCloseday($w_offday, '定休日');
+// $cal2024->setCloseday($w_offday, '定休日');
+$date_to_names = [];
+foreach ($cal2024->months as $month){
+    foreach ($month->w2days($w_offday) as $d){
+        $date = sprintf('%d-%02d-%02d', $month->year, $month->month, $d);
+        $date_to_names[$date] = '定休日';
+    } 
+}
+$cal2024->setDays('Closeday', $date_to_names);
 
 
 // 臨時休業
@@ -98,25 +106,31 @@ $cal2024->month(3)->day(21)->setAttr('Closeday', '臨時休業A');
 $cal2024->month(3)->day(23)->setAttr('Closeday', '臨時休業B');
 // 指定営業日＞指定定休日＞指定なし（デフォルト＝「営業日」
 $cal2024->month(3)->day(20)->setAttr('Openday', '営業日');
-print_r($cal2024->month(5));
 
-echo $cal2024->today(new Day(2025, 3, 19)), eol();
-echo $cal2024->nextOpenDay(), eol();
-echo $cal2024->nextOpenDay(2), eol();
-echo $cal2024->nextOpenDay(3), eol();
+// echo '=== class Calendar:: 2025-03 営業日========', eol(2);
+// print_r($cal2024->month(3)->openDay());
+// 
+echo '=== class Calendar:: 2025-03 休業日========', eol(2);
+print_r($cal2024->month(3)->closeDay());
 
-echo '=== class Holiday ::and()========', eol(2);
+echo $cal2024->today(new Day(2025, 3, 19)),' ***本日***', eol();
+echo $cal2024->nextOpenDay(),' 第1営業日', eol();
+echo $cal2024->nextOpenDay(2),' 第2営業日', eol();
+echo $cal2024->nextOpenDay(3),' 第3営業日', eol(2);
 
 $other = new Calendar($year, 4);
 $other->month(3)->day(24)->setAttr('Closeday', '臨時休業C');
-
 $cal_and = $cal2024->and($other);
-// print_r($cal_and->month(3));
 
-echo $cal2024->today(new Day(2025, 3, 19)), eol();
-echo $cal_and->nextOpenDay(), eol();
-echo $cal_and->nextOpenDay(2), eol();
-echo $cal_and->nextOpenDay(3), eol();
+// echo '=== class Calendar:: 2025-03 営業日========', eol(2);
+// print_r($cal2024->month(3)->openDay());
+echo '=== class Calendar:: 2025-03 休業日========', eol(2);
+print_r($cal2024->month(3)->closeDay());
+
+echo $cal2024->today(new Day(2025, 3, 19)),' ***本日***', eol();
+echo $cal_and->nextOpenDay(),' 第1営業日', eol();
+echo $cal_and->nextOpenDay(2),' 第2営業日', eol();
+echo $cal_and->nextOpenDay(3),' 第3営業日', eol(2);
 
 // echo '=== serialize / cache ========', eol(2);
 

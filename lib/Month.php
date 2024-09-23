@@ -66,6 +66,27 @@ class Month
         return $days;
     }
 
+    public function closeDay(): array
+    {
+        $days = [];
+        foreach ($this->days as $day){
+            if (!$day->isOpenday() and $day->isCloseday())
+                array_push($days, $day);
+        }
+        return $days;
+    }
+
+    public function openDay(): array
+    {
+        $days = [];
+        foreach ($this->days as $day){
+            if (!$day->isCloseday())
+                array_push($days, $day);
+        }
+        return $days;
+    }
+
+
     function __toString(): string
     {
         return "{$this->year}-{$this->month}";
