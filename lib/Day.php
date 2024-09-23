@@ -144,7 +144,7 @@ class Day
 
     public function isOpen()
     {
-        return ($this->isOpenday() or !$this->isCloseday());
+        return $this->isOpenday() or !$this->isCloseday();
     }
 
     public function isClose()
