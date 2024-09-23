@@ -121,7 +121,6 @@ class Day
         return false;
     }
 
-
     public function format(string $format): string
     {
         $time = $this->d2time();
@@ -142,6 +141,17 @@ class Day
         }
         return false;
     } 
+
+    public function isOpen()
+    {
+        return ($this->isOpenday() or !$this->isCloseday());
+    }
+
+    public function isClose()
+    {
+        return !$this->isOpen();
+    }
+
 
     public function __toString(): string
     {

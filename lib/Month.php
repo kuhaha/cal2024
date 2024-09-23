@@ -52,38 +52,29 @@ class Month
     }
     
     /**
-     * w2days(): compute all days of the same $dow in the month 
+     * w2days(): compute days of the same $dow in the month 
      * @param int $dow, day of week
+     * @param array[int] $ns, a list of n'th, e.g.,[2,4] for 2nd, 4th 
      * @return array[int], all days of the same $dow in the month 
      */
-    public function w2days(int $dow): array
+    public function w2days(int $dow, array $ns=null): array
     {
         $days = [];
-        for($n = 1; $n < 6; $n++){
+        foreach($ns??range(1,5) as $n){
             $day = $this->w2d($n, $dow);
             if ($day > 0) array_push($days, $day);
         }
         return $days;
     }
 
-    public function closeDay(): array
+    public function closeDays(): array
     {
-        $days = [];
-        foreach ($this->days as $day){
-            if (!$day->isOpenday() and $day->isCloseday())
-                array_push($days, $day);
-        }
-        return $days;
+        return array_filter($this->days, fn($x)=>$x->isClose());
     }
 
-    public function openDay(): array
+    public function openDays(): array
     {
-        $days = [];
-        foreach ($this->days as $day){
-            if (!$day->isCloseday())
-                array_push($days, $day);
-        }
-        return $days;
+        return array_filter($this->days, fn($x)=>$x->isOpen());
     }
 
 
