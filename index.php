@@ -113,7 +113,7 @@ $cal2024->month(3)->day(20)->setAttr('Openday', '営業日');
 echo '=== class Calendar:: 2025-03 休業日========', eol(2);
 print_r($cal2024->month(3)->closeDay());
 
-echo $cal2024->today(new Day(2025, 3, 19)),' ***本日***', eol();
+echo $cal2024->today(new Day(2025, 3, 20)),' ***本日***', eol();
 echo $cal2024->nextOpenDay(),' 第1営業日', eol();
 echo $cal2024->nextOpenDay(2),' 第2営業日', eol();
 echo $cal2024->nextOpenDay(3),' 第3営業日', eol(2);
@@ -127,7 +127,7 @@ $cal_and = $cal2024->and($other);
 echo '=== class Calendar:: 2025-03 休業日========', eol(2);
 print_r($cal2024->month(3)->closeDay());
 
-echo $cal2024->today(new Day(2025, 3, 19)),' ***本日***', eol();
+echo $cal2024->today(new Day(2025, 3, 20)),' ***本日***', eol();
 echo $cal_and->nextOpenDay(),' 第1営業日', eol();
 echo $cal_and->nextOpenDay(2),' 第2営業日', eol();
 echo $cal_and->nextOpenDay(3),' 第3営業日', eol(2);
