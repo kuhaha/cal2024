@@ -8,8 +8,8 @@ class Holiday
     public array $holidays = [];
     public Calendar $cal;
     private const HOLIDAY_SINCE = 1948;
-    private const SUBSTITUTE_HOLIDAY = '振替休日';
-    private const EXTRA_HOLIDAY = '国民の休日';   
+    private const SUBSTITUTE_HOLIDAY = '振替休日'; 
+    private const BRIDGE_HOLIDAY = '国民の休日';
     private const DATE_FORMAT ='Y-m-d'; // '2024-01-07' for January 7, 2024 
 
     public function __construct(Calendar $cal)
@@ -19,7 +19,7 @@ class Holiday
     public function parse(array $holiday_defs): void
     {
         if ($this->cal->year >= self::HOLIDAY_SINCE){
-            $this->parseYear($holiday_defs)->suppHolidays()->extraHolidays();
+            $this->parseYear($holiday_defs)->suppHolidays()->bridgeHolidays();
         }
 
     }
@@ -56,16 +56,16 @@ class Holiday
         return $this;
     }
 
-    private function extraHolidays()
+    private function bridgeHolidays()
     {
-        $ex_holidays = []; // 国民の祝日： extra holiday sandwiched by two holidays 
+        $ex_holidays = []; // 国民の祝日： bridge holiday sandwiched by two holidays 
         $prev_day = null;
         foreach (array_keys($this->holidays) as $date){
             $day = Day::createFromString($date);
             if ($prev_day){
                 $sand = $prev_day->sandwich($day);
                 if ($sand){
-                    $ex_holidays[$sand->format(self::DATE_FORMAT)] = self::EXTRA_HOLIDAY;
+                    $ex_holidays[$sand->format(self::DATE_FORMAT)] = self::BRIDGE_HOLIDAY;
                 }
             }
             $prev_day = $day;
@@ -93,7 +93,7 @@ class Holiday
     {
         $holidays = [];
         foreach ($month_defs as $def){
-            if ($this->validate($def)===false) continue;
+            if ($this->validate($def) === false) continue;
             $day = $this->parseDay($year, $month, $def['day']);                   
             if ($day > 0){ 
                 $date = new Day ($year, $month, $day);
