@@ -16,6 +16,7 @@ class Holiday
     {
         $this->cal = $cal;
     }
+    
     public function parse(array $holiday_defs): void
     {
         if ($this->cal->year >= self::HOLIDAY_SINCE){
