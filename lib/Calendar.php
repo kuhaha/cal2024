@@ -43,24 +43,16 @@ class Calendar
         return $this->today;
     }
 
-    // public function setCloseday(int $w, string $name="定休日")
-    // {
-    //     foreach ($this->months() as $month){
-    //         foreach ($month->w2days($w) as $d){
-    //             $month->day($d)->setAttr('Closeday', $name);
-    //         }
-    //     }
-    // }
 
     /**
      * Set named dates,  to the corresponding calenadar days  
-     * @param string $key, e.g, `Holiday`, `Openday`
+     * @param string $key, Day::DAYNAME `Weekday`|`Weekend`|`Holiday`|`Openday`|`Closeday`
      * @param array $date_to_names, an array of date definitions
      * @return Calendar object
      */
     public function setDays(string $key, array $date_to_names): self
     {
-        foreach ($date_to_names as $date=>$name){
+        foreach ($date_to_names as $date => $name){
             $day = Day::createFromString($date);
             if ($this->validate($day)){
                 [$m, $d] = [$day->month(), $day->day()];

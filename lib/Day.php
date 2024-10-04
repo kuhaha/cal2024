@@ -8,7 +8,7 @@ class Day
     public int $day; // day of month 日付
     public int $dow; // dow: day of week 曜日 [0..6]
     public array $attrs = [];
-    const DAY = [ // 指定営業日 ＞ 指定休業日 ＞ 指定なし（デフォルト「営業日」）※曜日・平日・祝日に関係なく）
+    const DAYNAME = [ // 指定営業日 ＞ 指定休業日 ＞ 指定なし（デフォルト「営業日」）※曜日・平日・祝日に関係なく）
         'Weekday' => '平日',
         'Weekend' => '週末', 
         'Holiday' => '祝日', 
@@ -134,7 +134,7 @@ class Day
     public function __call($isname,  $args = array()): mixed
     {
         $name = substr($isname, 0, 2)==='is' ? substr($isname, 2) : '';
-        $valid = self::DAY[$name] ?? false;
+        $valid = self::DAYNAME[$name] ?? false;
         if ($valid) {
             if (count($args) > 0) $this->setAttr($name, $args[0]);
             return $this->attrs[$name] ?? false;
